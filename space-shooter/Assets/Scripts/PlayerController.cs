@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate() {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-
-		print ("plop");
 		Vector3 movement = new Vector3(moveHorizontal,0.0f,moveVertical); 
 		rb.velocity = movement * speed;
 
@@ -43,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButton("Fire1") && Time.time > nextFire) {
 			nextFire = Time.time + fireRate;
 			Instantiate(shot,shotSpawn.position,shotSpawn.rotation);
+			GetComponent<AudioSource>().Play();
 		}
 	}
 }
