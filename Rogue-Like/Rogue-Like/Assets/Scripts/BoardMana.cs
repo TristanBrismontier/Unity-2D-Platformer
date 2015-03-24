@@ -76,8 +76,6 @@ public class BoardMana : MonoBehaviour {
 		LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
 		int ennemy = (int)Mathf.Log (level, 2f);
 		LayoutObjectAtRandom (ennemyTiles, ennemy, ennemy);
-		Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
-
-	
+		Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);	
 	}
 }
