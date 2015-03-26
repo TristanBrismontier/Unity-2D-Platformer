@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public bool playerTurn = true;
 
-	private int level = 3;
+	private int level = 9;
 	// Use this for initialization
 	void Awake () {
 		if (instance == null){

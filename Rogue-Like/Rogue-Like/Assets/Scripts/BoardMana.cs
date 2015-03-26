@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
+using Random = UnityEngine.Random; 	
 
 
 public class BoardMana : MonoBehaviour {
@@ -61,20 +61,25 @@ public class BoardMana : MonoBehaviour {
 		return randomPosition;
 	}
 
-	void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum){
-		int objcetCount = Random.Range (minimum, maximum + 1);
-		for (int i = 0; i<objcetCount; i++) {
+	void LayoutObjectAtRandom (GameObject[] tileArray, int minimum, int maximum)
+	{
+		int objectCount = Random.Range (minimum, maximum+1);
+		for(int i = 0; i < objectCount; i++)
+		{
 			Vector3 randomPosition = RandomPosition();
-			GameObject tileChoice = tileArray[Random.Range(0,tileArray.Length)];
-			Instantiate(tileChoice,randomPosition,Quaternion.identity);
+			GameObject tileChoice = tileArray[Random.Range (0, tileArray.Length)];
+			Instantiate(tileChoice, randomPosition, Quaternion.identity);
 		}
 	}
+
 	public void SetupScene (int level){
 		BoardSetup ();
 		InitializeLists ();
 		LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
 		LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
+
 		int ennemy = (int)Mathf.Log (level, 2f);
+		Debug.Log ("Ennemy"+ennemy);
 		LayoutObjectAtRandom (ennemyTiles, ennemy, ennemy);
 		Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);	
 	}
