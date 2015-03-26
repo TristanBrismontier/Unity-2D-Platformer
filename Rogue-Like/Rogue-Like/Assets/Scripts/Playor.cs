@@ -23,20 +23,20 @@ public class Playor : MovingObjects {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (!GameManager.instance.playerTurn)
-			return;
+		if(!GameManager.instance.playerTurn) return;
 		
-		int horizontal = 0;
-		int vertical = 0;
-		
-		horizontal = (int)Input.GetAxis ("Horizontal");
-		vertical = (int)Input.GetAxis ("Vertical");
-		
-		if (horizontal != 0)
+		int horizontal = 0;  	//Used to store the horizontal move direction.
+		int vertical = 0;		//Used to store the vertical move direction.
+		horizontal = (int) (Input.GetAxisRaw ("Horizontal"));
+		vertical = (int) (Input.GetAxisRaw ("Vertical"));
+		if(horizontal != 0)
+		{
 			vertical = 0;
-		
-		if (horizontal != 0 | vertical != 0)
+		}
+		if(horizontal != 0 || vertical != 0)
+		{
 			AttemptMove<Wall> (horizontal, vertical);
+		}
 	}
 	
 	protected override void AttemptMove <T> (int xDir, int yDir){
