@@ -54,11 +54,12 @@
      <Compile Include="Assets\Completed\Scripts\Player.cs" />
      <Compile Include="Assets\Completed\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Completed\Scripts\Wall.cs" />
-     <Compile Include="Assets\Prefabs\Player.cs" />
      <Compile Include="Assets\Scripts\BoardMana.cs" />
+     <Compile Include="Assets\Scripts\Ennemy.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\MovingObjects.cs" />
+     <Compile Include="Assets\Scripts\Playor.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
  <Reference Include="UnityEngine.UI">
