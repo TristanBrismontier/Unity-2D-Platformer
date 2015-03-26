@@ -54,6 +54,7 @@
      <Compile Include="Assets\Completed\Scripts\Player.cs" />
      <Compile Include="Assets\Completed\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Completed\Scripts\Wall.cs" />
+     <Compile Include="Assets\Prefabs\Player.cs" />
      <Compile Include="Assets\Scripts\BoardMana.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
