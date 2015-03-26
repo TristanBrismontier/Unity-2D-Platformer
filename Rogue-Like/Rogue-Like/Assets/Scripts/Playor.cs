@@ -59,11 +59,12 @@ public class Playor : MovingObjects {
 			other.gameObject.SetActive(false);
 		}
 	}
-	protected override void OnCantMove<T> (T component){
-		Wall hitWall = component as Wall;
+
+	protected override void OnCantMove <T> (T component)
+	{
+	    Wall hitWall = component as Wall;
 		hitWall.DamageWall (wallDamage);
 		animator.SetTrigger ("playerChop");
-		
 	}
 	
 	private void Restart(){
@@ -71,7 +72,7 @@ public class Playor : MovingObjects {
 	}
 	
 	public void LoseFood(int loss){
-		animator.SetTrigger ("PlayerHit");
+		animator.SetTrigger ("playerHit");
 		food -= loss;
 		CheckIfGameOver ();
 	}
