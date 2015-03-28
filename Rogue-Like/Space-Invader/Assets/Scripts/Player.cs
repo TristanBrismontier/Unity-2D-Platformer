@@ -1,10 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class Boundary 
+{
+	public float xMin,xMax;
+}
 
 public class Player : MonoBehaviour {
 
 	public float speed;
+	public Boundary boundary;
+
+	public Text posit;
+	public Text triggerBorder;
+
 	private Rigidbody2D rb;
+
 
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
@@ -15,6 +28,25 @@ public class Player : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 		Vector3 movement = new Vector3(moveHorizontal,0.0f,moveVertical); 
 		rb.velocity = movement * speed;
+		rb.position = new Vector3 
+			(
+				Mathf.Clamp(rb.position.x,boundary.xMin,boundary.xMax),
+				0,
+				0
+				);
+		posit.text = "x: " + rb.position.x + " y: "+ rb.position.y;
+	}
+
+	private void OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "Border") {
+			triggerBorder.text = "Touche";
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D other){
+		if (other.tag == "Border") {
+			triggerBorder.text = "Sort";
+		}
 	}
 	
 	void Update (){
