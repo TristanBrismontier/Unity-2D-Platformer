@@ -15,7 +15,7 @@ public class Playor : MovingObjects {
 	public AudioClip eatSound1;
 	public AudioClip eatSound2;
 	public AudioClip drinkSound1;
-	public AudioClip drinkound2;
+	public AudioClip drinkSound2;
 	public AudioClip gameOverSound;
 
 	private Animator animator;
@@ -74,7 +74,7 @@ public class Playor : MovingObjects {
 		} else if (other.tag == "Soda") {
 			food  += pointsPerSoda;
 			foodText.text = "+" + pointsPerSoda + " Food: "+food;
-			SoundManager.instance.RandomizeSfx(drinkSound1, drinkound2);
+			SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
 			other.gameObject.SetActive(false);
 		}
 	}
@@ -99,7 +99,7 @@ public class Playor : MovingObjects {
 	
 	private void CheckIfGameOver(){
 		if (food <= 0) {
-			SoundManager.instance.RandomizeSfx(gameOverSound);
+			SoundManager.instance.PlaySingle(gameOverSound);
 			GameManager.instance.GameOver();
 		}
 	}

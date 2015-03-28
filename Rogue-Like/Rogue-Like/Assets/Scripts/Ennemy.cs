@@ -4,11 +4,13 @@ using System.Collections;
 public class Ennemy : MovingObjects  {
 
 	public int playerDamage = 1;
-
+	public AudioClip attackSound1;
+	public AudioClip attackSound2;
 
 	private Animator animator;
 	private Transform target;
 	private bool skipMove;
+
 	
 	protected override void  Start () {
 		GameManager.instance.addEnemyToList (this);
@@ -47,6 +49,7 @@ public class Ennemy : MovingObjects  {
 	protected override void OnCantMove <T> (T component){
 		Playor hitPlayer = component as Playor;
 		animator.SetTrigger ("ennemyAttack");
+		SoundManager.instance.RandomizeSfx(attackSound1,attackSound2);
 		hitPlayer.LoseFood (playerDamage);
 	}
 }
