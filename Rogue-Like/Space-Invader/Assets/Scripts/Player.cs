@@ -16,8 +16,10 @@ public class Player : MonoBehaviour {
 	public Text posit;
 	public Text triggerBorder;
 
-	private Rigidbody2D rb;
+	public GameObject laser;
+	public Transform shotSpawn;
 
+	private Rigidbody2D rb;
 
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
@@ -49,6 +51,10 @@ public class Player : MonoBehaviour {
 		}
 	}
 	
-	void Update (){
+	void Update() {
+		if (Input.GetButton("Fire1")) {//&& GameManager.instance.canFire) {
+			GameManager.instance.canFire = false;
+			Instantiate(laser,shotSpawn.position,shotSpawn.rotation);
+		}
 	}
 }

@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public BoardManager boardScript;
 
+	public bool canFire = true;
+
 	public float moveRate = 1F;
 	private float nextMove = 0.0F;
 
@@ -37,13 +39,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
+		CheckEnnemyAlive();
 		if ( Time.time > nextMove) {
 			nextMove = Time.time + moveRate;
 			float x = changeDirection == true ? 0:xDir;
 			float y= changeDirection == true? yDir:0;
 			if(changeDirection){
 				xDir = xDir *-1f;
-				moveRate = moveRate/1.1f;
+				moveRate = moveRate/1.15f;
 				Debug.Log ("moveRate : "+ moveRate);
 				changeDirection = false;
 			}
@@ -52,6 +55,24 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		Debug.Log("FinUpdate");
+	}
+
+	void CheckEnnemyAlive(){
+		foreach(Ennemy ennemy in ennemies){
+			if(ennemy.isActiveAndEnabled){
+				return;
+			}
+		}
+		  moveRate = 1F;
+		  nextMove = 0.0F;
+		  xDir = 0.1f;
+		  yDir = -0.1f;
+		ennemies = new List<Ennemy> ();
+		boardScript.BoardSetup();
+	}
+
+	public void addEnnemyDestroyScore(int _score){
+
 	}
 
 	public void EnnemyContactBorder(){

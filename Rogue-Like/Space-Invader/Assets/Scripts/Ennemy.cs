@@ -6,6 +6,7 @@ public class Ennemy : MonoBehaviour {
 
 	public SpriteRenderer sprite1;
 	public SpriteRenderer sprite2;
+	public int score; 
 	private bool anim;
 
 	void AnimationAnim ()
@@ -34,6 +35,14 @@ public class Ennemy : MonoBehaviour {
 		Vector2 start = transform.position;
 		Vector2 end = start + new Vector2 (xDir, yDir);
 		transform.position = end;
+	}
+
+	private void OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "Laser") {
+			GameManager.instance.addEnnemyDestroyScore(score);
+			Destroy(other.gameObject);
+			gameObject.SetActive(false);
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other){
