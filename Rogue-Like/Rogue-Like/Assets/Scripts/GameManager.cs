@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour {
 	private bool doingStetup;
 
 
-
 	// Use this for initialization
 	void Awake () {
 		if (instance == null){

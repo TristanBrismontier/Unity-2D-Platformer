@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 	public float moveRate = 1F;
 	private float nextMove = 0.0F;
 
-	private float xDir = 0.05f;
+	private float xDir = 0.1f;
 	private float yDir = -0.1f;
 
 	private bool changeDirection; 
@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour {
 	public void addEnemyToList(Ennemy script){
 		ennemies.Add (script);
 	}
-	
 
 	void Update() {
 		if ( Time.time > nextMove) {
@@ -43,10 +42,9 @@ public class GameManager : MonoBehaviour {
 			float x = changeDirection == true ? 0:xDir;
 			float y= changeDirection == true? yDir:0;
 			if(changeDirection){
-				xDir = xDir *-1.25f;
-				yDir = yDir * 1.25f;
-				moveRate = moveRate/1.2f;
-				Debug.Log ("moveRate");
+				xDir = xDir *-1f;
+				moveRate = moveRate/1.1f;
+				Debug.Log ("moveRate : "+ moveRate);
 				changeDirection = false;
 			}
 			foreach(Ennemy ennemy in ennemies){
