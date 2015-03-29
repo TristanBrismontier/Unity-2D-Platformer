@@ -40,7 +40,20 @@ public class Player : MonoBehaviour {
 			Instantiate(laser,shotSpawn.position,shotSpawn.rotation);
 		}
 	}
+
+	private void OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "Ennemy") {
+			GameManager.instance.PlayerLooseLive();
+			ReinitPosition ();
+		}
+	}
+
 	public void CanFireAgain (){
 		canFire = true;
+	}
+
+	private void ReinitPosition (){
+		rb.velocity = Vector3.zero;
+		rb.position = Vector3.zero;
 	}
 }

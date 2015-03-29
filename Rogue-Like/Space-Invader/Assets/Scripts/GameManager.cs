@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public BoardManager boardScript;
 	public Text scoreText;
+	public Text liveText;
 
 	public float moveRatepublic = 1f;
+	public int lives;
 
 	private int score;
 	private float moveRate, nextMove;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 		boardScript = GetComponent<BoardManager> ();
 		InitEnnemySystem();
+		liveText.text = lives+" Live";
 	}
 
 	void InitEnnemySystem ()
@@ -81,5 +84,10 @@ public class GameManager : MonoBehaviour {
 
 	public void EnnemyContactBorder(){
 		changeDirection = true;
+	}
+
+	public void PlayerLooseLive(){
+		lives--;
+		liveText.text = lives+" Live";
 	}
 }

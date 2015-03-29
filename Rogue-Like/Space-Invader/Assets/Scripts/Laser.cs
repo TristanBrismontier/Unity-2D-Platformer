@@ -9,9 +9,7 @@ public class Laser : MonoBehaviour {
 
 	void Start(){
 		player =(Player)FindObjectOfType(typeof(Player));
-		if(player)
-			Debug.Log("OK player");
-		else {
+		if(!player){
 			Debug.LogError("Pas Player");
 		}
 

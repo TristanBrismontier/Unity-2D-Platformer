@@ -6,7 +6,10 @@ public class Ennemy : MonoBehaviour {
 
 	public SpriteRenderer sprite1;
 	public SpriteRenderer sprite2;
+	public Transform shotSpawn;
 	public int score; 
+
+	public GameObject laser;
 
 	private bool anim= true;
 
@@ -43,8 +46,10 @@ public class Ennemy : MonoBehaviour {
 			GameManager.instance.EnnemyContactBorder();
 		}
 	}
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Update() {
+		if (Random.value >0.999f) {// && canFire ){
+			Instantiate(laser,shotSpawn.position,shotSpawn.rotation);
+		}
 	}
 }
