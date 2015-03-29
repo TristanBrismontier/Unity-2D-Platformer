@@ -35,9 +35,9 @@ public class Ennemy : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Laser") {
-			GameManager.instance.addEnnemyDestroyScore(score);
+			GameManager.instance.addEnnemyDestroyScore(score,this);
 			Destroy(other.gameObject);
-			gameObject.SetActive(false);
+			Destroy (gameObject);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class Ennemy : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Random.value >0.999f) {// && canFire ){
+		if (Random.value >0.9995f && !GameManager.instance.gameOver) {// && canFire ){
 			Instantiate(laser,shotSpawn.position,shotSpawn.rotation);
 		}
 	}

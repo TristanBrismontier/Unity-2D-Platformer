@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update() {
-		if (Input.GetButton("Fire1") ) {// && canFire ){
+		if (Input.GetButton("Fire1") && canFire ){
 			canFire = false;
 			Instantiate(laser,shotSpawn.position,shotSpawn.rotation);
 		}
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Ennemy") {
+			Destroy(other.gameObject);
 			GameManager.instance.PlayerLooseLive();
 			ReinitPosition ();
 		}
@@ -54,6 +55,5 @@ public class Player : MonoBehaviour {
 
 	private void ReinitPosition (){
 		rb.velocity = Vector3.zero;
-		rb.position = Vector3.zero;
 	}
 }

@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public BoardManager boardScript;
 	public Text scoreText;
-	public Text liveText;
+	public Image[] livesImg;
+	public GameObject gameOverUI;
 
 	public float moveRatepublic = 1f;
 	public int lives;
+
+	public bool gameOver = false;
+	public float timeToRestart = 1F;
+	private float nextRestart = 0.0F;
 
 	private int score;
 	private float moveRate, nextMove;
@@ -28,12 +33,24 @@ public class GameManager : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-		score = 0;
-		addEnnemyDestroyScore(0);
+
 		DontDestroyOnLoad(gameObject);
 		boardScript = GetComponent<BoardManager> ();
-		InitEnnemySystem();
-		liveText.text = lives+" Live";
+		SartGame ();
+		InitEnnemySystem ();
+	}
+
+	void SartGame ()
+	{
+		lives = 3;
+		gameOver = false;
+		score = 0;
+		scoreText.text = "Score: " + score;
+
+		gameOverUI.SetActive (false);
+		livesImg [0].enabled = true;
+		livesImg [1].enabled = true;
+		livesImg [2].enabled = true;
 	}
 
 	void InitEnnemySystem ()
@@ -51,33 +68,36 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
-		CheckEnnemyAlive();
-		if ( Time.time > nextMove) {
-			nextMove = Time.time + moveRate;
-			float x = changeDirection == true ? 0:xDir;
-			float y= changeDirection == true? yDir:0;
-			if(changeDirection){
-				xDir = xDir *-1f;
-				moveRate = moveRate/1.15f;
-				Debug.Log ("moveRate : "+ moveRate);
-				changeDirection = false;
-			}
-			foreach(Ennemy ennemy in ennemies){
-				ennemy.Move(x,y);
+		if(gameOver && Input.anyKey && Time.time > nextRestart){
+			SartGame ();
+		}
+		if(!gameOver){
+			CheckEnnemyAlive();
+			if ( Time.time > nextMove) {
+				nextMove = Time.time + moveRate;
+				float x = changeDirection == true ? 0:xDir;
+				float y= changeDirection == true? yDir:0;
+				if(changeDirection){
+					xDir = xDir *-1f;
+					moveRate = moveRate/1.15f;
+					changeDirection = false;
+				}
+				foreach(Ennemy ennemy in ennemies){
+					ennemy.Move(x,y);
+				}
 			}
 		}
+
 	}
 
 	void CheckEnnemyAlive(){
-		foreach(Ennemy ennemy in ennemies){
-			if(ennemy.isActiveAndEnabled){
-				return;
-			}
-		}
+		if(ennemies.Count >0)
+			return;
 		InitEnnemySystem ();
 	}
 
-	public void addEnnemyDestroyScore(int _score){
+	public void addEnnemyDestroyScore(int _score, Ennemy script){
+		ennemies.Remove (script);
 		score += _score;
 		scoreText.text = " Score: "+score;
 	}
@@ -86,8 +106,23 @@ public class GameManager : MonoBehaviour {
 		changeDirection = true;
 	}
 
+	private void GameOver(){
+		foreach(Ennemy enn in ennemies){
+			Destroy(enn.gameObject);
+		}
+		ennemies.Clear();
+		gameOver = true;
+		gameOverUI.SetActive(true);
+		InitEnnemySystem();
+		nextRestart = Time.time + timeToRestart;
+	}
+
 	public void PlayerLooseLive(){
+		if(lives == 0){
+			GameOver();
+			return;
+		}
 		lives--;
-		liveText.text = lives+" Live";
+		livesImg[lives].enabled =false;
 	}
 }
