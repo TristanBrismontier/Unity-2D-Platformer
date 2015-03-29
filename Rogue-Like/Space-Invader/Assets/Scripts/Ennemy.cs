@@ -7,7 +7,8 @@ public class Ennemy : MonoBehaviour {
 	public SpriteRenderer sprite1;
 	public SpriteRenderer sprite2;
 	public int score; 
-	private bool anim;
+
+	private bool anim= true;
 
 	void AnimationAnim ()
 	{
@@ -17,15 +18,7 @@ public class Ennemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = true;
 		GameManager.instance.addEnemyToList (this);
-		if(sprite1 == null){
-			Debug.Log("Sprites1 == Null");
-		}
-		if(sprite2 == null){
-			Debug.Log("Sprites1 == Null");
-		}
-
 		AnimationAnim ();
 	}
 

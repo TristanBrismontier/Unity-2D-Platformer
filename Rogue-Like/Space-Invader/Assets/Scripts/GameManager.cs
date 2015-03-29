@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	public BoardManager boardScript;
+	public Text scoreText;
 
-	public bool canFire = true;
+	public float moveRatepublic = 1f;
 
-	public float moveRate = 1F;
-	private float nextMove = 0.0F;
-
-	private float xDir = 0.1f;
-	private float yDir = -0.1f;
-
+	private int score;
+	private float moveRate, nextMove;
+	private float xDir ,yDir;
 	private bool changeDirection; 
 	private List<Ennemy> ennemies;
 
@@ -27,11 +26,21 @@ public class GameManager : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-		
+		score = 0;
+		addEnnemyDestroyScore(0);
 		DontDestroyOnLoad(gameObject);
-		ennemies = new List<Ennemy> ();
 		boardScript = GetComponent<BoardManager> ();
-		boardScript.BoardSetup();
+		InitEnnemySystem();
+	}
+
+	void InitEnnemySystem ()
+	{
+		moveRate = moveRatepublic;
+		nextMove = 0.0F;
+		xDir = 0.1f;
+		yDir = -0.1f;
+		ennemies = new List<Ennemy> ();
+		boardScript.BoardSetup ();
 	}
 
 	public void addEnemyToList(Ennemy script){
@@ -54,7 +63,6 @@ public class GameManager : MonoBehaviour {
 				ennemy.Move(x,y);
 			}
 		}
-		Debug.Log("FinUpdate");
 	}
 
 	void CheckEnnemyAlive(){
@@ -63,20 +71,15 @@ public class GameManager : MonoBehaviour {
 				return;
 			}
 		}
-		  moveRate = 1F;
-		  nextMove = 0.0F;
-		  xDir = 0.1f;
-		  yDir = -0.1f;
-		ennemies = new List<Ennemy> ();
-		boardScript.BoardSetup();
+		InitEnnemySystem ();
 	}
 
 	public void addEnnemyDestroyScore(int _score){
-
+		score += _score;
+		scoreText.text = " Score: "+score;
 	}
 
 	public void EnnemyContactBorder(){
 		changeDirection = true;
-		Debug.Log("ChangeDirection");
 	}
 }

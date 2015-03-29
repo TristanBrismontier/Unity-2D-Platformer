@@ -6,14 +6,16 @@ public class Laser : MonoBehaviour {
 	public float velocity= 0.01f;
 
 	private Player player;
-	// Use this for initialization
-	void Start () {
-	
+
+	void Start(){
+		player =(Player)FindObjectOfType(typeof(Player));
+		if(player)
+			Debug.Log("OK player");
+		else {
+			Debug.LogError("Pas Player");
+		}
+
 	}
-	public void SetPlayer(Player _player){
-		player = _player;
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		Vector2 start = transform.position;
@@ -26,9 +28,7 @@ public class Laser : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-
 	void OnDestroy(){
-		GameManager.instance.canFire = true;
+		player.CanFireAgain ();;
 	}
-
 }
