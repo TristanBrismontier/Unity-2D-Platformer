@@ -38,6 +38,8 @@ public class Ennemy : MonoBehaviour {
 			GameManager.instance.addEnnemyDestroyScore(score,this);
 			Destroy(other.gameObject);
 			Destroy (gameObject);
+		} else if (other.tag == "Player"){
+			GameManager.instance.GameOver ();
 		}
 	}
 

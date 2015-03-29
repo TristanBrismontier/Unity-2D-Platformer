@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour {
 		changeDirection = true;
 	}
 
-	private void GameOver(){
+	public void GameOver(){
 		foreach(Ennemy enn in ennemies){
 			Destroy(enn.gameObject);
 		}
