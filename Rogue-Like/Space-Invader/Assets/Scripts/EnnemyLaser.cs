@@ -13,7 +13,7 @@ public class EnnemyLaser : MonoBehaviour {
 
 	private void OnTriggerExit2D(Collider2D other){
 		Debug.Log("ExitTrigger :" + other.tag);
-		if (other.tag == "Border") {
+		if (other.tag == "Finish") {
 			Debug.Log ("Destroy");
 			Destroy(gameObject);
 		}
