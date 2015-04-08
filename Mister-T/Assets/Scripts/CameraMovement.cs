@@ -3,14 +3,6 @@ using System.Collections;
 
 public class CameraMovement : MonoBehaviour {
 
-	public GameObject player;
-	public float offset;
-	public float speed;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	public float dampTime = 0.15f;
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
@@ -25,16 +17,5 @@ public class CameraMovement : MonoBehaviour {
 			Vector3 destination = transform.position + delta;
 			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 		}
-		
 	}
-//	
-//	// Update is called once per frame
-//	void Update () {
-//		float xDiff = transform.position.x - player.transform.position.x;
-//		if(Mathf.Abs(xDiff)> offset){
-//			float toAdd = xDiff < 0 ? speed:-speed ;
-//			transform.Translate( new Vector3(toAdd,0,0),Space.Self);
-//
-//		}
-//	}
 }
