@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	public float speed;
 	public Transform startPosition;
+	public float jumpVelocity;
 	
 	private Rigidbody2D rb;
 	private Vector3 start;
@@ -19,9 +20,11 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if( Input.GetKey(KeyCode.Space)){
+			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
+		}
 		if(transform.position.y < -1){
 			transform.position = startPosition.position;
 		}
-	
 	}
 }
