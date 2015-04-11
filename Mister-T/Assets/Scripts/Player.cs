@@ -21,6 +21,8 @@ public class Player : MonoBehaviour {
 		rb.velocity = new Vector2(moveHorizontal * speed ,rb.velocity.y);
 		if (canJump && Input.GetKey(KeyCode.Space))
 		{ 
+			float velocityY = rb.velocity.y;
+			animator.SetFloat("yvelocity",velocityY);
 			canJump = false;
 			//Jump Script      
 			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
@@ -30,12 +32,14 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float velocityX = rb.velocity.x;
+		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
 		if(velocityX != 0){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
 		}
 		animator.SetBool("run",run);
+		animator.SetFloat("yvelocity",velocityY);
 		if(transform.position.y < -1){
 			transform.position = startPosition.position;
 		}
