@@ -9,8 +9,11 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D rb;
 	private Vector3 start;
 	private bool canJump;
-
+	private Animator animator;
+	
+	
 	void Start() {
+		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
 	}
 	void FixedUpdate(){
@@ -19,15 +22,20 @@ public class Player : MonoBehaviour {
 		if (canJump && Input.GetKey(KeyCode.Space))
 		{ 
 			canJump = false;
-			Debug.Log("plop");
 			//Jump Script      
 			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
 			
 		}
 	}
-
 	// Update is called once per frame
 	void Update () {
+		float velocityX = rb.velocity.x;
+		bool run = false;
+		if(velocityX != 0){
+			run = true;
+			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
+		}
+		animator.SetBool("run",run);
 		if(transform.position.y < -1){
 			transform.position = startPosition.position;
 		}
@@ -35,7 +43,6 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionStay2D(Collision2D coll ) // C#, type first, name in second
 	{
-		Debug.Log(coll.gameObject.tag);
 		canJump = true;
 	}
 }
