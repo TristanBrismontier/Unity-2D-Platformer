@@ -28,6 +28,9 @@ public class Player : MonoBehaviour {
 			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
 			
 		}
+		if(Input.GetKey(KeyCode.B)){
+			animator.SetTrigger("Idle2");
+		}
 	}
 	// Update is called once per frame
 	void Update () {
