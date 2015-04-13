@@ -13,9 +13,8 @@ public class Player : MonoBehaviour {
 	private Animator animator;
 	private PolygonCollider2D hitCollider;
 	private bool god; 
+	private bool canHit;
 
-	
-	
 	void Start() {
 		god = false;
 		animator = GetComponent<Animator> ();	
@@ -35,7 +34,9 @@ public class Player : MonoBehaviour {
 			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
 			
 		}
-		if(Input.GetKey(KeyCode.B)){
+		if(Input.GetKey(KeyCode.B) && canHit){
+
+			canHit = false;
 			Invoke("DoAttack", .5f);
 			animator.SetTrigger("hit"); 
 		}
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour {
 
 	private void EnDAttack(){
 		god=false;
+		canHit = true;
 		hitCollider.enabled = false;
 	}
 
@@ -74,7 +76,7 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Enemy"){
-			if(!canJump){
+			if(!canJump || god){
 				Destroy(coll.gameObject);
 			}
 			else{
