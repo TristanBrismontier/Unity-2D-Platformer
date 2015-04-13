@@ -32,6 +32,12 @@ public class Player : MonoBehaviour {
 			animator.SetTrigger("Idle2"); 
 		}
 	}
+
+	void Restart()
+	{
+		transform.position = startPosition.position;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		float velocityX = rb.velocity.x;
@@ -44,8 +50,14 @@ public class Player : MonoBehaviour {
 		animator.SetBool("run",run);
 		animator.SetFloat("yvelocity",velocityY);
 		if(transform.position.y < -1){
-			transform.position = startPosition.position;
+			Restart ();
 		}
+	}
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Enemy")
+			Restart ();
+		
 	}
 
 	void OnCollisionStay2D(Collision2D coll ) // C#, type first, name in second
