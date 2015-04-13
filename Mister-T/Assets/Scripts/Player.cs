@@ -14,7 +14,6 @@ public class Player : MonoBehaviour {
 	private PolygonCollider2D hitCollider;
 	private bool god = false;
 	private bool canHit = true;
-	static int atakState = Animator.StringToHash("hit");  
 
 	void Start() {
 		animator = GetComponent<Animator> ();	
@@ -39,21 +38,19 @@ public class Player : MonoBehaviour {
 			animator.SetTrigger("hit"); 
 			canHit = false;
 			fg=false;
-			Invoke("DoAttack", .4f);
+			StartCoroutine (DoAttack());
 		}
 		if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hit") && !canHit && fg){
 			Debug.Log ("canHit");
 			canHit = true;
 		}
 	}
-	private void DoAttack(){
+	IEnumerator DoAttack () {
+		yield return new WaitForSeconds(.5f);
 		Debug.Log("DoAttaCK");
-		Invoke("EnDAttack", .5f);
 		god=true;
 		hitCollider.enabled = true;
-	}
-
-	private void EnDAttack(){
+		yield return new WaitForSeconds(.3f);
 		Debug.Log("EnDAttack");
 		god=false;
 		hitCollider.enabled = false;
