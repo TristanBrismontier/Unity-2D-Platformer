@@ -55,10 +55,16 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Enemy")
-			Restart ();
-		
+		if (coll.gameObject.tag == "Enemy"){
+			if(!canJump){
+				Destroy(coll.gameObject);
+			}
+			else{
+				Restart ();
+			}			
+		}
 	}
+
 
 	void OnCollisionStay2D(Collision2D coll ) // C#, type first, name in second
 	{
