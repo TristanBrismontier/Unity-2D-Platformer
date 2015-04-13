@@ -5,16 +5,23 @@ public class Player : MonoBehaviour {
 	public float speed;
 	public Transform startPosition;
 	public float jumpVelocity;
-	
+	public GameObject polygoneGame;
+
 	private Rigidbody2D rb;
 	private Vector3 start;
 	private bool canJump;
 	private Animator animator;
+	private PolygonCollider2D hitCollider;
+	private bool god; 
+
 	
 	
 	void Start() {
+		god = false;
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
+		hitCollider = polygoneGame.GetComponent<PolygonCollider2D>();
+		hitCollider.enabled = false;
 	}
 	void FixedUpdate(){
 		float moveHorizontal = Input.GetAxis ("Horizontal");
@@ -29,8 +36,19 @@ public class Player : MonoBehaviour {
 			
 		}
 		if(Input.GetKey(KeyCode.B)){
-			animator.SetTrigger("Idle2"); 
+			Invoke("DoAttack", .5f);
+			animator.SetTrigger("hit"); 
 		}
+	}
+	private void DoAttack(){
+		Invoke("EnDAttack", .6f);
+		god=true;
+		hitCollider.enabled = true;
+	}
+
+	private void EnDAttack(){
+		god=false;
+		hitCollider.enabled = false;
 	}
 
 	void Restart()
