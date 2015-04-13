@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

@@ -12,11 +12,11 @@ public class Player : MonoBehaviour {
 	private bool canJump;
 	private Animator animator;
 	private PolygonCollider2D hitCollider;
-	private bool god; 
-	private bool canHit;
+	private bool god = false;
+	private bool canHit = true;
+	static int atakState = Animator.StringToHash("hit");  
 
 	void Start() {
-		god = false;
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
 		hitCollider = polygoneGame.GetComponent<PolygonCollider2D>();
@@ -34,22 +34,28 @@ public class Player : MonoBehaviour {
 			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
 			
 		}
-		if(Input.GetKey(KeyCode.B) && canHit){
-
-			canHit = false;
-			Invoke("DoAttack", .5f);
+		bool fg =true;
+		if(Input.GetKey(KeyCode.B) && canHit && !hitCollider.enabled){
 			animator.SetTrigger("hit"); 
+			canHit = false;
+			fg=false;
+			Invoke("DoAttack", .4f);
+		}
+		if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hit") && !canHit && fg){
+			Debug.Log ("canHit");
+			canHit = true;
 		}
 	}
 	private void DoAttack(){
-		Invoke("EnDAttack", .6f);
+		Debug.Log("DoAttaCK");
+		Invoke("EnDAttack", .5f);
 		god=true;
 		hitCollider.enabled = true;
 	}
 
 	private void EnDAttack(){
+		Debug.Log("EnDAttack");
 		god=false;
-		canHit = true;
 		hitCollider.enabled = false;
 	}
 
