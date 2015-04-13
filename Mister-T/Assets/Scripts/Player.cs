@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
 			
 		}
 		if(Input.GetKey(KeyCode.B)){
-			animator.SetTrigger("Idle2");
+			animator.SetTrigger("Idle2"); 
 		}
 	}
 	// Update is called once per frame
