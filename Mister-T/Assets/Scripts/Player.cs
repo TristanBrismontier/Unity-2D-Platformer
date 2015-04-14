@@ -40,6 +40,11 @@ public class Player : MonoBehaviour {
 			fg=false;
 			StartCoroutine (DoAttack());
 		}
+
+		if(Input.GetKey(KeyCode.N)){
+			animator.SetTrigger("plop"); 
+		}
+
 		if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hit") && !canHit && fg){
 			Debug.Log ("canHit");
 			canHit = true;
