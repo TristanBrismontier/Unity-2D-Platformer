@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
 		hitCollider.enabled = false;
 	}
 	void FixedUpdate(){
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+		float moveHorizontal = (canHit)?Input.GetAxis ("Horizontal"):0;
 		rb.velocity = new Vector2(moveHorizontal * speed ,rb.velocity.y);
 		if (canJump && Input.GetKey(KeyCode.Space))
 		{ 
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 			
 		}
 		bool fg =true;
-		if(Input.GetKey(KeyCode.B) && canHit && !hitCollider.enabled){
+		if(Input.GetKey(KeyCode.B) && canHit && canJump){
 			animator.SetTrigger("hit"); 
 			canHit = false;
 			fg=false;

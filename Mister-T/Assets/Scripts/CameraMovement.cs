@@ -6,7 +6,13 @@ public class CameraMovement : MonoBehaviour {
 	public float dampTime = 0.15f;
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
-	
+
+	public GameObject gameManager;
+
+	void Awake () {
+		if (GameController.instance == null)
+			Instantiate(gameManager);
+	}
 	// Update is called once per frame
 	void Update () 
 	{
