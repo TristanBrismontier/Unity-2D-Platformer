@@ -81,6 +81,7 @@ public class Player : MonoBehaviour {
 		if (coll.gameObject.tag == "Enemy"){
 			if(!canJump || god){
 				Destroy(coll.gameObject);
+				GameManager.instance.AddEnemy();
 			}
 			else{
 				Restart ();

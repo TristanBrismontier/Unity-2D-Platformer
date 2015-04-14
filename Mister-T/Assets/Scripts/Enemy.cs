@@ -10,6 +10,14 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(transform.position.y < -1){
+			Die ();
+		}
 	}
+
+	private void Die(){
+		Destroy(this.gameObject);
+		GameManager.instance.AddEnemy();
+	}
+
 }

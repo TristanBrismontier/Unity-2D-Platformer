@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour {
 	public GameObject gameManager;
 
 	void Awake () {
-		if (GameController.instance == null)
+		if (GameManager.instance == null)
 			Instantiate(gameManager);
 	}
 	// Update is called once per frame
