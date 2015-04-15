@@ -47,11 +47,11 @@ public class Player : MonoBehaviour {
 		}
 	}
 	IEnumerator DoAttack () {
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.4f);
 		Debug.Log("DoAttaCK");
 		god=true;
 		hitCollider.enabled = true;
-		yield return new WaitForSeconds(.3f);
+		yield return new WaitForSeconds(.4f);
 		Debug.Log("EnDAttack");
 		god=false;
 		hitCollider.enabled = false;
