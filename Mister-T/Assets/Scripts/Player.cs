@@ -93,6 +93,9 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionStay2D(Collision2D coll ) // C#, type first, name in second
 	{
-		canJump = true;
+		Debug.Log(coll.gameObject.tag);
+		if (coll.gameObject.tag == "Ground"){
+			canJump = true;
+		}
 	}
 }
