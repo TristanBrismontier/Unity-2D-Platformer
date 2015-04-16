@@ -67,12 +67,13 @@ public class Player : MonoBehaviour {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
-		if(velocityX != 0){
+		if(velocityX != 0 && !god){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
 		}
 		animator.SetBool("run",run);
 		animator.SetFloat("yvelocity",velocityY);
+
 		if(transform.position.y < -1){
 			Restart ();
 		}
