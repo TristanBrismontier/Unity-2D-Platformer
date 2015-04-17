@@ -23,6 +23,13 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Debug.DrawLine(target.position, transform.position, Color.red); 
+		float ang = Vector2.Angle(transform.position, target.position);
+		Vector3 cross = Vector3.Cross(transform.position, target.position);
+		
+		if (cross.z > 0)
+			ang = 360 - ang;
+		
+		Debug.Log ("Dist :" +Vector2.Distance(target.position,transform.position) +"Angle :"+ang);
 
 		if(Vector2.Distance(target.position,transform.position)<maxDetection){
 			animator.SetBool("run",true);
