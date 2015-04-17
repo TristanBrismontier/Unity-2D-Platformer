@@ -17,17 +17,14 @@ public class GameManager : MonoBehaviour {
 		
 		DontDestroyOnLoad(gameObject);
 	}
-	// Use this for initialization
 	void Start () {
-		AddEnemy();
+		float randomEnn = Random.Range(2,6);
+		for(int i=0;i<randomEnn;i++ ){
+			AddEnemy();
+		}
 	}
 
 	public void AddEnemy(){
-		Instantiate(enemy, new Vector3(Random.Range(0,12), 0.5f, 0), Quaternion.identity);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		Instantiate(enemy, new Vector3(Random.Range(2,15), 0.5f, 0), Quaternion.identity);
 	}
 }

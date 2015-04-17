@@ -91,8 +91,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-
-	void OnCollisionStay2D(Collision2D coll ) // C#, type first, name in second
+	void OnCollisionStay2D(Collision2D coll ) 
 	{
 		Debug.Log(coll.gameObject.tag);
 		if (coll.gameObject.tag == "Ground"){
