@@ -1,38 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Enemy : MonoBehaviour {
 	public float speed;
 	public float maxDetection;
 
 	private Transform target;
 	private Rigidbody2D rb;
-	private bool face;
+	private bool face = false;
 	private Animator animator;
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
-		face = Random.Range(-1,1)>0;
-		transform.localScale = new Vector3(face?1:-1, 1, 1);
 		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		target = go.transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.DrawLine(target.position, transform.position, Color.red); 
-		float ang = Vector2.Angle(transform.position, target.position);
-		Vector3 cross = Vector3.Cross(transform.position, target.position);
-		
-		if (cross.z > 0)
-			ang = 360 - ang;
-		
-		Debug.Log ("Dist :" +Vector2.Distance(target.position,transform.position) +"Angle :"+ang);
+		Debug.DrawLine(target.position, transform.position, Color.red); 		
+		Debug.Log ("Dist :" +Vector2.Distance(target.position,transform.position) +"Angle :"+GetAngle(transform,target));
 
 		if(Vector2.Distance(target.position,transform.position)<maxDetection){
+			float angle = Mathf.Abs(GetAngle(transform,target));
+			face = angle < 90;
 			animator.SetBool("run",true);
+			transform.localScale = new Vector3(face?1:-1, 1, 1);
 			rb.velocity = new Vector2((face?1:-1)*speed ,rb.velocity.y);
 		}else{
 			animator.SetBool("run",false);
@@ -49,4 +45,11 @@ public class Enemy : MonoBehaviour {
 		GameManager.instance.AddEnemy();
 	}
 
+	private float GetAngle(Transform t1, Transform t2)
+	{
+		float xDiff = t2.position.x - t1.position.x;
+		float yDiff = t2.position.y - t1.position.y;
+		return Mathf.Atan2(yDiff, xDiff) * (180 / Mathf.PI);
+	}
+	
 }
