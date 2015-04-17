@@ -1,3 +1,7 @@
 http://answers.unity3d.com/questions/438175/enemy-ai-detect-player-when-seen.html
 
 Player detection. 
+
+Angle Calculation : 
+http://stackoverflow.com/questions/7586063/how-to-calculate-the-angle-between-a-line-and-the-horizontal-axis
+http://wikicode.wikidot.com/get-angle-of-line-between-two-points
