@@ -23,9 +23,9 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		Debug.DrawLine(target.position, transform.position, Color.red); 		
 		Debug.Log ("Dist :" +Vector2.Distance(target.position,transform.position) +"Angle :"+GetAngle(transform,target));
+		float angle = Mathf.Abs(GetAngle(transform,target));
+		if(Vector2.Distance(target.position,transform.position)<maxDetection && (angle>100 || angle <80)){
 
-		if(Vector2.Distance(target.position,transform.position)<maxDetection){
-			float angle = Mathf.Abs(GetAngle(transform,target));
 			face = angle < 90;
 			animator.SetBool("run",true);
 			transform.localScale = new Vector3(face?1:-1, 1, 1);
