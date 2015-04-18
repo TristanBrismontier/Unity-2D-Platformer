@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 	void Start () {
-		float randomEnn = Random.Range(2,6);
+		float randomEnn = Random.Range(2,2);
 		for(int i=0;i<randomEnn;i++ ){
 			AddEnemy();
 		}
@@ -26,5 +26,10 @@ public class GameManager : MonoBehaviour {
 
 	public void AddEnemy(){
 		Instantiate(enemy, new Vector3(Random.Range(2,15), 0.5f, 0), Quaternion.identity);
+	}
+
+	public bool TakeDamage(int damage){
+		//TODO 
+		return true;
 	}
 }

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 	private PolygonCollider2D hitCollider;
 	private bool god = false;
 	private bool canHit = true;
+	private bool canMove = true;
 
 	void Start() {
 		animator = GetComponent<Animator> ();	
@@ -22,9 +23,12 @@ public class Player : MonoBehaviour {
 		hitCollider.enabled = false;
 	}
 	void FixedUpdate(){
-		float moveHorizontal = (canHit)?Input.GetAxis ("Horizontal"):0;
-		rb.velocity = new Vector2(moveHorizontal * speed ,rb.velocity.y);
-		if (canJump && Input.GetKey(KeyCode.Space))
+		if(canMove){
+			float moveHorizontal = canHit? Input.GetAxis ("Horizontal"):0;
+			rb.velocity = new Vector2(moveHorizontal * speed ,rb.velocity.y);
+		}
+
+		if (canMove && canJump && Input.GetKey(KeyCode.Space))
 		{ 
 			float velocityY = rb.velocity.y;
 			animator.SetFloat("yvelocity",velocityY);
@@ -34,7 +38,7 @@ public class Player : MonoBehaviour {
 			
 		}
 		bool fg =true;
-		if(Input.GetKey(KeyCode.B) && canHit && canJump){
+		if(Input.GetKey(KeyCode.B) && canHit && canJump && canMove){
 			animator.SetTrigger("hit"); 
 			canHit = false;
 			fg=false;
@@ -42,19 +46,8 @@ public class Player : MonoBehaviour {
 		}
 
 		if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hit") && !canHit && fg){
-			Debug.Log ("canHit");
 			canHit = true;
 		}
-	}
-	IEnumerator DoAttack () {
-		yield return new WaitForSeconds(.4f);
-		Debug.Log("DoAttaCK");
-		god=true;
-		hitCollider.enabled = true;
-		yield return new WaitForSeconds(.4f);
-		Debug.Log("EnDAttack");
-		god=false;
-		hitCollider.enabled = false;
 	}
 
 	void Restart()
@@ -67,12 +60,14 @@ public class Player : MonoBehaviour {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
-		if(velocityX != 0 && !god){
+		if(velocityX != 0 && canMove){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
 		}
 		animator.SetBool("run",run);
-		animator.SetFloat("yvelocity",velocityY);
+		if(canMove){
+			animator.SetFloat("yvelocity",velocityY);
+		}
 
 		if(transform.position.y < -1){
 			Restart ();
@@ -86,16 +81,57 @@ public class Player : MonoBehaviour {
 				GameManager.instance.AddEnemy();
 			}
 			else{
-				Restart ();
+				WasHit(coll.gameObject.transform);
 			}			
 		}
 	}
-
 	void OnCollisionStay2D(Collision2D coll ) 
 	{
-		Debug.Log(coll.gameObject.tag);
 		if (coll.gameObject.tag == "Ground"){
 			canJump = true;
 		}
 	}
+
+	private void WasHit(Transform ennemy){
+		bool stileInLive = GameManager.instance.TakeDamage(1);
+		Debug.Log (GetAngle(transform,ennemy));
+		bool direction = Mathf.Abs(GetAngle(transform,ennemy))>90;
+		Debug.Log(direction);
+		if(stileInLive){
+			canMove = false;
+			animator.SetTrigger("hurt");
+			if(direction){
+				Debug.Log("right");
+				rb.AddForce(new Vector2(0.5f,0.5f),ForceMode2D.Impulse);
+			}else{
+				Debug.Log("left");
+				rb.AddForce(new Vector2(-0.5f,0.5f),ForceMode2D.Impulse);
+			}
+			transform.localScale = new Vector3(direction?-1:1, 1, 1);
+			StartCoroutine (DidHurt());
+		}
+	}
+	private IEnumerator DidHurt () {
+		yield return new WaitForSeconds(.2f);
+		canMove = true;
+	}
+
+	private IEnumerator DoAttack () {
+		yield return new WaitForSeconds(.4f);
+		god=true;
+		hitCollider.enabled = true;
+		yield return new WaitForSeconds(.4f);
+		god=false;
+		hitCollider.enabled = false;
+	}
+
+	private float GetAngle(Transform t1, Transform t2)
+	{
+		float xDiff = t2.position.x - t1.position.x;
+		float yDiff = t2.position.y - t1.position.y;
+		return Mathf.Atan2(yDiff, xDiff) * (180 / Mathf.PI);
+	}
+
+
+
 }

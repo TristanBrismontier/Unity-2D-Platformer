@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 
@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour {
 	private bool face = false;
 	private Animator animator;
 
-	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
@@ -21,11 +20,8 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.DrawLine(target.position, transform.position, Color.red); 		
-		Debug.Log ("Dist :" +Vector2.Distance(target.position,transform.position) +"Angle :"+GetAngle(transform,target));
 		float angle = Mathf.Abs(GetAngle(transform,target));
 		if(Vector2.Distance(target.position,transform.position)<maxDetection && (angle>100 || angle <80)){
-
 			face = angle < 90;
 			animator.SetBool("run",true);
 			transform.localScale = new Vector3(face?1:-1, 1, 1);
