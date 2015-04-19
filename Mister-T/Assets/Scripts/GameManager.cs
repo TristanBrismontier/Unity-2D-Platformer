@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 	void Start () {
-		float randomEnn = Random.Range(2,2);
+		float randomEnn = Random.Range(4,4);
 		for(int i=0;i<randomEnn;i++ ){
 			AddEnemy();
 		}

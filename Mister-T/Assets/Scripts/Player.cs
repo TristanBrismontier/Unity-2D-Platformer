@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
-		if(velocityX != 0 && canMove){
+		if(velocityX != 0 && canMove && canHit){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
 		}
@@ -94,17 +94,13 @@ public class Player : MonoBehaviour {
 
 	private void WasHit(Transform ennemy){
 		bool stileInLive = GameManager.instance.TakeDamage(1);
-		Debug.Log (GetAngle(transform,ennemy));
 		bool direction = Mathf.Abs(GetAngle(transform,ennemy))>90;
-		Debug.Log(direction);
 		if(stileInLive){
 			canMove = false;
 			animator.SetTrigger("hurt");
 			if(direction){
-				Debug.Log("right");
 				rb.AddForce(new Vector2(0.5f,0.5f),ForceMode2D.Impulse);
 			}else{
-				Debug.Log("left");
 				rb.AddForce(new Vector2(-0.5f,0.5f),ForceMode2D.Impulse);
 			}
 			transform.localScale = new Vector3(direction?-1:1, 1, 1);
