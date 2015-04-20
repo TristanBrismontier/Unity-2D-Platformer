@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 	private bool canJump;
 	private Animator animator;
 	private PolygonCollider2D hitCollider;
+	private BoxCollider2D hitBox;
 	private bool god = false;
 	private bool canHit = true;
 	private bool canMove = true;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour {
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
 		hitCollider = polygoneGame.GetComponent<PolygonCollider2D>();
+		hitBox = GetComponent<BoxCollider2D>();
 		hitCollider.enabled = false;
 	}
 	void FixedUpdate(){
@@ -30,11 +32,15 @@ public class Player : MonoBehaviour {
 
 		if (canMove && canJump && Input.GetKey(KeyCode.Space))
 		{ 
-			float velocityY = rb.velocity.y;
-			animator.SetFloat("yvelocity",velocityY);
+			if(Input.GetAxis("Vertical")<0 && rb.position.y >1){
+				hitBox.isTrigger = true;
+			}else{
+				float velocityY = rb.velocity.y;
+				animator.SetFloat("yvelocity",velocityY);
+				//Jump Script      
+				rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
+			}
 			canJump = false;
-			//Jump Script      
-			rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
 			
 		}
 		bool fg =true;
@@ -60,8 +66,8 @@ public class Player : MonoBehaviour {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
-		Debug.Log (velocityX);
-		if(velocityX != 0 && canMove && canHit){
+		Debug.Log (rb.position.y);
+		if(Mathf.Abs (velocityX) > 0.0001 && canMove && canHit){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
 		}
@@ -86,9 +92,9 @@ public class Player : MonoBehaviour {
 			}			
 		}
 	}
-	void OnCollisionStay2D(Collision2D coll ) 
+	void OnCollisionStay2D(Collision2D other ) 
 	{
-		if (coll.gameObject.tag == "Ground"){
+		if (other.gameObject.tag == "Ground"){
 			canJump = true;
 		}
 	}
@@ -97,6 +103,11 @@ public class Player : MonoBehaviour {
 		if (other.gameObject.tag == "Enemy"){
 			Destroy(other.gameObject);
 			GameManager.instance.AddEnemy();
+		}
+	}
+	void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.tag == "Ground"){
+			hitBox.isTrigger = false;
 		}
 	}
 
@@ -135,7 +146,4 @@ public class Player : MonoBehaviour {
 		float yDiff = t2.position.y - t1.position.y;
 		return Mathf.Atan2(yDiff, xDiff) * (180 / Mathf.PI);
 	}
-
-
-
 }
