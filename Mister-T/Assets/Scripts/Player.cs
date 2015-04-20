@@ -60,6 +60,7 @@ public class Player : MonoBehaviour {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
+		Debug.Log (velocityX);
 		if(velocityX != 0 && canMove && canHit){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
@@ -89,6 +90,13 @@ public class Player : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Ground"){
 			canJump = true;
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.tag == "Enemy"){
+			Destroy(other.gameObject);
+			GameManager.instance.AddEnemy();
 		}
 	}
 
