@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void AddEnemy(){
-		Instantiate(enemy, new Vector3(Random.Range(2,15), 0.5f, 0), Quaternion.identity);
+		Instantiate(enemy, new Vector3((float)(Random.Range(20,200)/10), 2.1f, 0), Quaternion.identity);
 	}
 
 	public bool TakeDamage(int damage){
