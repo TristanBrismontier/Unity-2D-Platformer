@@ -1,4 +1,7 @@
 # Unity-2D-Platformer
-Tutorial From Unity
+Basic 2D platformer. 
 
-Temporary Testing Url : tristanbrismontier.github.io/plop.html
+I tried to develop a Basic platformer. 
+Sprites comes from :  Adventure Time: Hey Ice King! Why'd You Steal Our Garbage?!
+
+[a link](http://tristanbrismontier.github.io/AdventureTime.html)
