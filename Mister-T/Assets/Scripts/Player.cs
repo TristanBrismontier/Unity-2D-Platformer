@@ -24,36 +24,52 @@ public class Player : MonoBehaviour {
 		hitBox = GetComponent<BoxCollider2D>();
 		hitCollider.enabled = false;
 	}
+
+
 	void FixedUpdate(){
 		if(canMove){
-			float moveHorizontal = canHit? Input.GetAxis ("Horizontal"):0;
-			rb.velocity = new Vector2(moveHorizontal * speed ,rb.velocity.y);
+			Move ();
 		}
 
 		if (canMove && canJump && Input.GetKey(KeyCode.Space))
 		{ 
-			if(Input.GetAxis("Vertical")<0 && rb.position.y >1){
-				hitBox.isTrigger = true;
-			}else{
-				float velocityY = rb.velocity.y;
-				animator.SetFloat("yvelocity",velocityY);
-				//Jump Script      
-				rb.AddForce(Vector2.up*jumpVelocity,ForceMode2D.Impulse);
-			}
-			canJump = false;
-			
+			Jump ();
 		}
 		bool fg =true;
 		if(Input.GetKey(KeyCode.B) && canHit && canJump && canMove){
-			animator.SetTrigger("hit"); 
-			canHit = false;
-			fg=false;
-			StartCoroutine (DoAttack());
+			Hit (); 
+			fg = false;
 		}
-
 		if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hit") && !canHit && fg){
 			canHit = true;
 		}
+	}
+
+	private void Move ()
+	{
+		float moveHorizontal = canHit ? Input.GetAxis ("Horizontal") : 0;
+		rb.velocity = new Vector2 (moveHorizontal * speed, rb.velocity.y);
+	}
+	
+	private void Jump ()
+	{
+		if (Input.GetAxis ("Vertical") < 0 && rb.position.y > 1) {
+			hitBox.isTrigger = true;
+		}
+		else {
+			float velocityY = rb.velocity.y;
+			animator.SetFloat ("yvelocity", velocityY);
+			//Jump Script      
+			rb.AddForce (Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+		}
+		canJump = false;
+	}
+
+	private void Hit ()
+	{
+		animator.SetTrigger ("hit");
+		canHit = false;
+		StartCoroutine (DoAttack ());
 	}
 
 	void Restart()

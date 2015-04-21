@@ -47,5 +47,4 @@ public class Enemy : MonoBehaviour {
 		float yDiff = t2.position.y - t1.position.y;
 		return Mathf.Atan2(yDiff, xDiff) * (180 / Mathf.PI);
 	}
-
 }
