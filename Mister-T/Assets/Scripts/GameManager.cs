@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	public GameObject enemy;
+	public GameObject[] hearts; 
+	public Transform startPosition;
+
+	private int life;
+	private int startLife;
 
 	void Awake () {
 		if (instance == null){
@@ -18,9 +23,19 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 	void Start () {
-		float randomEnn = Random.Range(4,4);
-		for(int i=0;i<randomEnn;i++ ){
-			AddEnemy();
+		InitGame ();
+	}
+
+	void InitGame ()
+	{
+		startLife = hearts.Length;
+		life = startLife;
+		for(int i=0;i< hearts.Length; i++){
+			 hearts[i].SetActive(true);
+		}
+		float randomEnn = Random.Range (4, 4);
+		for (int i = 0; i < randomEnn; i++) {
+			AddEnemy ();
 		}
 	}
 
@@ -29,7 +44,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public bool TakeDamage(int damage){
-		//TODO 
+		if(life>1){
+			hearts[life-1].SetActive()
+		}
 		return true;
+	}
+
+	public void Restart()
+	{
+		GameObject go = GameObject.FindGameObjectWithTag("Player");
+		transform.position = startPosition.position;
+		InitGame ();
 	}
 }
