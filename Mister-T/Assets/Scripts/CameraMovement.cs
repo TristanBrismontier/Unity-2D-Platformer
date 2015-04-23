@@ -6,12 +6,14 @@ public class CameraMovement : MonoBehaviour {
 	public float dampTime = 0.15f;
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
-
+	public GameObject[] hearts; 
 	public GameObject gameManager;
 
 	void Awake () {
 		if (GameManager.instance == null)
 			Instantiate(gameManager);
+
+		GameManager.instance.SetHearts(hearts);
 	}
 	// Update is called once per frame
 	void Update () 

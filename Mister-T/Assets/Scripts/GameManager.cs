@@ -5,11 +5,12 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 	public GameObject enemy;
-	public GameObject[] hearts; 
+
 	public Transform startPosition;
 
 	private int life;
 	private int startLife;
+	private GameObject[] hearts; 
 
 	void Awake () {
 		if (instance == null){
@@ -46,14 +47,26 @@ public class GameManager : MonoBehaviour {
 	public bool TakeDamage(int damage){
 		if(life>1){
 			hearts[life-1].SetActive(false);
+			life--;
+			Debug.Log("live");
+			return true;
+		}else{
+			Debug.Log("Restart");
+			Restart();
+			return false;
 		}
-		return true;
+
 	}
 
 	public void Restart()
 	{
+		Debug.Log("live");
 		GameObject go = GameObject.FindGameObjectWithTag("Player");
-		transform.position = startPosition.position;
+		go.transform.position = startPosition.position;
 		InitGame ();
 	}
+
+	public void SetHearts(GameObject[] _hearts){
+		hearts =  _hearts;
+	} 
 }

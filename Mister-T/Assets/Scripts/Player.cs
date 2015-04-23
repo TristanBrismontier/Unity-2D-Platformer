@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	public float speed;
-	public Transform startPosition;
 	public float jumpVelocity;
 	public GameObject polygoneGame;
 
@@ -72,17 +71,13 @@ public class Player : MonoBehaviour {
 		StartCoroutine (DoAttack ());
 	}
 
-	void Restart()
-	{
-		transform.position = startPosition.position;
-	}
+
 
 	// Update is called once per frame
 	void Update () {
 		float velocityX = rb.velocity.x;
 		int velocityY = (int)(rb.velocity.y * 1000);
 		bool run = false;
-		Debug.Log (rb.position.y);
 		if(Mathf.Abs (velocityX) > 0.0001 && canMove && canHit){
 			run = true;
 			transform.localScale = new Vector3(velocityX>0?1:-1, 1, 1);
@@ -93,7 +88,7 @@ public class Player : MonoBehaviour {
 		}
 
 		if(transform.position.y < -1){
-			Restart ();
+			GameManager.instance.TakeDamage(3);
 		}
 	}
 
