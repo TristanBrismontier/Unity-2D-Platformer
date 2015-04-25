@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 	public float speed;
 	public float jumpVelocity;
 	public GameObject polygoneGame;
+	public AudioClip jumpSound;
 
 	private Rigidbody2D rb;
 	private Vector3 start;
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour {
 			rb.AddForce (Vector2.up * jumpVelocity, ForceMode2D.Impulse);
 		}
 		canJump = false;
+		SoundManager.instance.PlaySingle(jumpSound);
 	}
 
 	private void Hit ()
