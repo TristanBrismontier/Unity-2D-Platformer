@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public bool TakeDamage(int damage){
-		if(life>1){
+		if(life>0){
 			hearts[life-1].SetActive(false);
 			life--;
 			Debug.Log("live");
