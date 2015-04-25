@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 	public float jumpVelocity;
 	public GameObject polygoneGame;
 	public AudioClip jumpSound;
+	public AudioClip hitSound;
+	public AudioClip smashSound;
 
 	private Rigidbody2D rb;
 	private Vector3 start;
@@ -137,6 +139,7 @@ public class Player : MonoBehaviour {
 			}
 			transform.localScale = new Vector3(direction?-1:1, 1, 1);
 			StartCoroutine (DidHurt());
+			SoundManager.instance.PlaySingle(hitSound);
 		}
 	}
 	private IEnumerator DidHurt () {
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour {
 		yield return new WaitForSeconds(.4f);
 		god=true;
 		hitCollider.enabled = true;
+		SoundManager.instance.PlaySingle(smashSound);
 		yield return new WaitForSeconds(.4f);
 		god=false;
 		hitCollider.enabled = false;
