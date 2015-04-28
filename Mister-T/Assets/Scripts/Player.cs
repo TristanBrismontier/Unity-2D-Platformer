@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public AudioClip jumpSound;
 	public AudioClip hitSound;
 	public AudioClip smashSound;
+	public float jumpRate = 0.5F;
 
 	private Rigidbody2D rb;
 	private Vector3 start;
@@ -15,15 +16,19 @@ public class Player : MonoBehaviour {
 	private Animator animator;
 	private PolygonCollider2D hitCollider;
 	private BoxCollider2D hitBox;
+	private CircleCollider2D hitbox2;
 	private bool god = false;
 	private bool canHit = true;
 	private bool canMove = true;
+	private float nextJump = 0.0F;
+
 
 	void Start() {
 		animator = GetComponent<Animator> ();	
 		rb = GetComponent<Rigidbody2D>();
 		hitCollider = polygoneGame.GetComponent<PolygonCollider2D>();
 		hitBox = GetComponent<BoxCollider2D>();
+		hitbox2 = GetComponent<CircleCollider2D>();
 		hitCollider.enabled = false;
 	}
 
@@ -33,8 +38,8 @@ public class Player : MonoBehaviour {
 			Move ();
 		}
 
-		if (canMove && canJump && Input.GetKey(KeyCode.Space))
-		{ 
+		if (canMove && canJump && Input.GetKey(KeyCode.Space) && Time.time > nextJump) {
+			nextJump = Time.time + jumpRate; 
 			Jump ();
 		}
 		bool fg =true;
@@ -57,6 +62,7 @@ public class Player : MonoBehaviour {
 	{
 		if (Input.GetAxis ("Vertical") < 0 && rb.position.y > 1) {
 			hitBox.isTrigger = true;
+			hitbox2.isTrigger = true;
 		}
 		else {
 			float velocityY = rb.velocity.y;
@@ -98,7 +104,9 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Enemy"){
+			Debug.Log (canJump);
 			if(!canJump || god){
+
 				Destroy(coll.gameObject);
 				GameManager.instance.AddEnemy();
 			}
@@ -109,8 +117,9 @@ public class Player : MonoBehaviour {
 	}
 	void OnCollisionStay2D(Collision2D other ) 
 	{
-		if (other.gameObject.tag == "Ground"){
+		if (other.gameObject.tag == "Ground" &&  Time.time > nextJump){
 			canJump = true;
+			Debug.Log (canJump);
 		}
 	}
 
@@ -123,6 +132,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other){
 		if (other.gameObject.tag == "Ground"){
 			hitBox.isTrigger = false;
+			hitbox2.isTrigger = false;
 		}
 	}
 
