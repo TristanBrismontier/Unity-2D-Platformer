@@ -13,7 +13,7 @@ public class Cube : MonoBehaviour {
 	void Update () {
 		float x = transform.position.x;
 		float y = transform.position.y;
-
+		Debug.Log( x + " " + y);
 		if( x < 0 || x > 100 || y > 10 || y < -2 ){
 			transform.position = startPosition.position;
 		}
