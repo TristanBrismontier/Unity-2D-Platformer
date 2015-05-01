@@ -15,7 +15,7 @@ public class Cube : MonoBehaviour {
 		float y = transform.position.y;
 
 		if( x < 0 || x > 100 || y > 10 || y < -2 ){
-			transform = startPosition;
+			transform.position = startPosition.position;
 		}
 	}
 }
