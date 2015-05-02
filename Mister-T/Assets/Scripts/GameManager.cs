@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Restart()
 	{
+		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		go.transform.position = startPosition.position;
 		InitGame ();
 	}
