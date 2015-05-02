@@ -15,7 +15,7 @@ public class CubeSystem : MonoBehaviour {
 		for (float x=0; x<columns; x++) {
 			for(float y=0; y<rows; y++){
 				GameObject toInstantiate = cube;
-				GameObject instance = Instantiate(toInstantiate,new Vector3(x*0.1f+transform.position.x,y*0.1f+transform.position.y,0f),Quaternion.identity) as GameObject;
+				GameObject instance = Instantiate(toInstantiate,new Vector3(x*0.2f+transform.position.x,y*0.1f+transform.position.y,0f),Quaternion.identity) as GameObject;
 				
 			}
 		}
