@@ -94,7 +94,6 @@ public class Player : MonoBehaviour {
 		}
 		animator.SetBool("run",run);
 		if(canMove){
-			Debug.Log(velocityY);
 			animator.SetFloat("yvelocity",velocityY);
 		}
 
