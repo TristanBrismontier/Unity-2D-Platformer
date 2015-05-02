@@ -94,6 +94,7 @@ public class Player : MonoBehaviour {
 		}
 		animator.SetBool("run",run);
 		if(canMove){
+			Debug.Log(velocityY);
 			animator.SetFloat("yvelocity",velocityY);
 		}
 
@@ -133,7 +134,7 @@ public class Player : MonoBehaviour {
 			hitbox2.isTrigger = false;
 		}
 	}
-
+	
 	private void WasHit(Transform ennemy){
 		bool stileInLive = GameManager.instance.TakeDamage(1);
 		bool direction = Mathf.Abs(GetAngle(transform,ennemy))>90;
