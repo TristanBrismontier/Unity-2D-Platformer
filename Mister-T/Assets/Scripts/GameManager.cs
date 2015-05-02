@@ -48,10 +48,8 @@ public class GameManager : MonoBehaviour {
 		if(life>0){
 			hearts[life-1].SetActive(false);
 			life--;
-			Debug.Log("live");
 			return true;
 		}else{
-			Debug.Log("Restart");
 			Restart();
 			return false;
 		}
@@ -60,8 +58,6 @@ public class GameManager : MonoBehaviour {
 
 	public void Restart()
 	{
-		Debug.Log("live");
-		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		go.transform.position = startPosition.position;
 		InitGame ();
 	}

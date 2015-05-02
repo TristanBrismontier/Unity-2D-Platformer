@@ -104,7 +104,6 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Enemy"){
-			Debug.Log (canJump);
 			if(!canJump || god){
 
 				Destroy(coll.gameObject);
@@ -119,7 +118,6 @@ public class Player : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Ground" &&  Time.time > nextJump){
 			canJump = true;
-			Debug.Log (canJump);
 		}
 	}
 
