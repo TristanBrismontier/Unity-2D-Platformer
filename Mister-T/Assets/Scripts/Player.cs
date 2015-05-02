@@ -113,6 +113,9 @@ public class Player : MonoBehaviour {
 				WasHit(coll.gameObject.transform);
 			}			
 		}
+		if (coll.gameObject.tag == "DeadlyThing"){
+			WasHit(coll.gameObject.transform);
+		}
 	}
 	void OnCollisionStay2D(Collision2D other ) 
 	{
