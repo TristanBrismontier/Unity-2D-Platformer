@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 		float delta = x  - go.transform.position.x;
 		if( Mathf.Abs(delta) < 2.1f ){
 			Debug.Log ("Pos Player : " + go.transform.position.x + "Fix Bitch : " + x + " delta : " +delta + " Fix : "+ x+((delta<=0)?-1:1));
-			x=x+((delta<=0)?-1:1);
+			x=x+((delta<=0)?-2:2);
 		}
 		Instantiate(enemy, new Vector3( x, 2.1f, 0), Quaternion.identity);
 	}
