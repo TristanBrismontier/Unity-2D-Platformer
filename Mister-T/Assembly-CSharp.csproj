@@ -51,7 +51,9 @@
      <Compile Include="Assets\Scripts\Cube.cs" />
      <Compile Include="Assets\Scripts\CubeSystem.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\FollowPath.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\PathView.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\loader.cs" />
