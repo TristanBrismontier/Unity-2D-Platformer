@@ -12,7 +12,6 @@ public class PathView : MonoBehaviour {
 		int direction = 1;
 		int index = 0;
 		while(true){
-			Debug.Log (Points[index].position);
 			yield return Points[index];
 			if(index <=0)
 				direction =1 ;
