@@ -17,7 +17,6 @@ public class FollowPath : MonoBehaviour {
 
 	public void Start(){
 		if(Path == null){
-			Debug.LogError("PathError Null", gameObject);
 			return;
 		}
 
@@ -25,7 +24,6 @@ public class FollowPath : MonoBehaviour {
 		_currentPoint.MoveNext();
 
 		if(_currentPoint.Current == null){
-			Debug.LogError("ErrorStart");
 			return;
 		}
 		transform.position = _currentPoint.Current.position;
@@ -34,11 +32,9 @@ public class FollowPath : MonoBehaviour {
 
 	public void Update(){
 		if(_currentPoint == null || _currentPoint.Current== null){
-			Debug.LogError("Error");
 			return;
 		}
 			
-		Debug.Log (transform.position +" -> "+_currentPoint.Current.position);
 		if(Type == FollowType.MoveTowards)
 			transform.position = Vector3.MoveTowards(transform.position, _currentPoint.Current.position, Time.deltaTime * Speed);
 		else if(Type == FollowType.Lerp)
@@ -46,7 +42,6 @@ public class FollowPath : MonoBehaviour {
 		float distance = (transform.position - _currentPoint.Current.position).sqrMagnitude;
 	
 		if(distance < MaxDistToGoal * MaxDistToGoal){
-			Debug.Log ("Change");
 			_currentPoint.MoveNext();
 		}
 

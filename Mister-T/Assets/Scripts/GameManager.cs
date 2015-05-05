@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void AddEnemy(){
-		float x = (float)(Random.Range(20,200)/10);
+		float x = (float)(Random.Range(-30,200)/10);
 		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		float delta = x  - go.transform.position.x;
 		if( Mathf.Abs(delta) < 2.1f ){

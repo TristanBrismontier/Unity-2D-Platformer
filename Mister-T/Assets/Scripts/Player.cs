@@ -135,8 +135,21 @@ public class Player : MonoBehaviour {
 			hitBox.isTrigger = false;
 			hitbox2.isTrigger = false;
 		}
+		Debug.Log ("ExitTrigger");
+		if(other.gameObject.tag == "platform"){
+			transform.parent = null;
+			
+		}
 	}
-	
+
+	void OnTriggerStay2D(Collider2D other){
+		Debug.Log ("EnterTrigger");
+		if(other.gameObject.tag == "platform"){
+			transform.parent= other.transform;
+			
+		}
+	}
+
 	private void WasHit(Transform ennemy){
 		bool stileInLive = GameManager.instance.TakeDamage(1);
 		bool direction = Mathf.Abs(GetAngle(transform,ennemy))>90;
