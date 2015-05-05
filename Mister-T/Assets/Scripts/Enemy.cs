@@ -40,6 +40,21 @@ public class Enemy : MonoBehaviour {
 		Destroy(this.gameObject);
 		GameManager.instance.AddEnemy();
 	}
+	void OnTriggerExit2D(Collider2D other){
+
+		if(other.gameObject.tag == "platform"){
+			transform.parent = null;
+			
+		}
+	}
+	
+	void OnTriggerStay2D(Collider2D other){
+		Debug.Log ("Stay");
+		if(other.gameObject.tag == "platform"){
+			transform.parent= other.transform;
+			
+		}
+	}
 
 	private float GetAngle(Transform t1, Transform t2)
 	{
