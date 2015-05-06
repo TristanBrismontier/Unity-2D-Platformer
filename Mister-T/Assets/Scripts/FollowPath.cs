@@ -10,10 +10,12 @@ public class FollowPath : MonoBehaviour {
 	}
 	public FollowType Type = FollowType.MoveTowards;
 	public PathView Path;
+	public bool playerActivate = false;
 	public float Speed =1;
 	public float MaxDistToGoal = .2f;
 
 	private IEnumerator<Transform> _currentPoint;
+	private bool PlayerContact = false;
 
 	public void Start(){
 		if(Path == null){
@@ -31,7 +33,7 @@ public class FollowPath : MonoBehaviour {
 
 
 	public void Update(){
-		if(_currentPoint == null || _currentPoint.Current== null){
+		if(_currentPoint == null || _currentPoint.Current== null || (playerActivate && !PlayerContact)){
 			return;
 		}
 			
@@ -44,8 +46,13 @@ public class FollowPath : MonoBehaviour {
 		if(distance < MaxDistToGoal * MaxDistToGoal){
 			_currentPoint.MoveNext();
 		}
-
+		PlayerContact=false;
 	}
 
-
+	void OnCollisionStay2D(Collision2D other ) 
+	{
+		if (other.gameObject.tag == "Player"){
+			PlayerContact = true;
+			}
+	}
 }
