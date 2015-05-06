@@ -105,7 +105,7 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Enemy"){
 			if(!canJump || god){
-
+				Debug.Log ( "Jump "+canJump+" God : "+ god);
 				Destroy(coll.gameObject);
 				GameManager.instance.AddEnemy();
 			}
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.tag == "Enemy"){
+		if (other.gameObject.tag == "Enemy" && god){
 			Destroy(other.gameObject);
 			GameManager.instance.AddEnemy();
 		}

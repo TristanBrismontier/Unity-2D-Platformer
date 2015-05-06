@@ -41,7 +41,6 @@ public class Enemy : MonoBehaviour {
 		GameManager.instance.AddEnemy();
 	}
 	void OnTriggerExit2D(Collider2D other){
-
 		if(other.gameObject.tag == "platform"){
 			transform.parent = null;
 			
@@ -49,7 +48,6 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	void OnTriggerStay2D(Collider2D other){
-		Debug.Log ("Stay");
 		if(other.gameObject.tag == "platform"){
 			transform.parent= other.transform;
 			
